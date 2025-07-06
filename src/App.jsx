@@ -13,6 +13,23 @@ function App() {
   const [startGame, setStartGame] = useState(false)
   const [inputValue, setInputValue] = useState("");
 
+//   const theme = createTheme({
+//   typography: {
+//     fontFamily: [
+//       '-apple-system',
+//       'BlinkMacSystemFont',
+//       '"Segoe UI"',
+//       'Roboto',
+//       '"Helvetica Neue"',
+//       'Arial',
+//       'sans-serif',
+//       '"Apple Color Emoji"',
+//       '"Segoe UI Emoji"',
+//       '"Segoe UI Symbol"',
+//     ].join(','),
+//   },
+// });
+
 //   const THEME = createMuiTheme({
 //    typography: {
 //     "fontFamily": `"Big Caslon`,
@@ -68,16 +85,16 @@ function App() {
   if (currentScore === 20) {
     message = "Swift AF ";
   } else if (currentScore > 15) {
-    message = "Certified Swiftie ";
+    message = "card shark <3 ";
   } else if (currentScore > 10) {
-    message = "You're no Kanye, but keep going!";
+    message = "Yes, whale! (Taylor's Version)";
   } else if (currentScore > 6) {
-    message = "Yes, whale (Taylor's Version)";
+    message = "you need to calm down...";
   } else {
-    message = "You need to calm down!";
+    message = "is this you trying?";
   }
-    alert("Game Over! Score: " + currentScore + " / " + totalScore + "\n" + message);
-
+    alert("Game Over! Score: " + currentScore + " / " + totalScore + "\n" + message + "\n" + "(Refresh page to play again)"
+    );
   }
 
   function checkInput() {
@@ -88,6 +105,7 @@ function App() {
       .replace(/\s*\(.*?\)\s*/g, ' ')
       .trim()
       .toLowerCase();
+
     console.log(cleanTitle);
 
     if (inputValue.trim().toLowerCase() === cleanTitle) {
@@ -124,11 +142,13 @@ function App() {
 
         <Box py={1.5}>
 
-          <button onClick={() => setStartGame(true) & refreshLyric()}>Start</button>
+          <button onClick={() => setStartGame(true) & refreshLyric()}>let the games begin...</button>
 
           <Box py={1.5} />
 
+
           {startGame &&
+          
             <TextField id="outlined-basic" label="you're on your own, kid" variant="outlined"
               fullWidth
               value={inputValue}
