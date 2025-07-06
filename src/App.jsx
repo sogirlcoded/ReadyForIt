@@ -13,6 +13,16 @@ function App() {
   const [startGame, setStartGame] = useState(false)
   const [inputValue, setInputValue] = useState("");
 
+//   const THEME = createMuiTheme({
+//    typography: {
+//     "fontFamily": `"Big Caslon`,
+//     // "fontSize": 14,
+//     // "fontWeightLight": 300,
+//     // "fontWeightRegular": 400,
+//     // "fontWeightMedium": 500
+//    }
+// });
+
   if (gameCount === totalScore) {
     endGame();
   }
@@ -53,20 +63,34 @@ function App() {
   // }
 
   function endGame() {
-    alert("Game Over! Score: " + currentScore + " / " + totalScore);
+  let message = "";
+
+  if (currentScore === 20) {
+    message = "Swift AF ";
+  } else if (currentScore > 15) {
+    message = "Certified Swiftie ";
+  } else if (currentScore > 10) {
+    message = "You're no Kanye, but keep going!";
+  } else if (currentScore > 6) {
+    message = "Yes, whale (Taylor's Version)";
+  } else {
+    message = "You need to calm down!";
+  }
+    alert("Game Over! Score: " + currentScore + " / " + totalScore + "\n" + message);
 
   }
 
   function checkInput() {
     //if user input matches songInfo.title with fuzzy search, increase score and refresh
     const cleanTitle = songInfo.song_title
-      .replace("Taylor's version", " ")
-      .replace("10 minute version", " ")
+      .replace(/taylor['’]s version/gi, ' ')
+      .replace(/10 minute version/gi, ' ')
+      .replace(/\s*\(.*?\)\s*/g, ' ')
       .trim()
       .toLowerCase();
     console.log(cleanTitle);
 
-    if (inputValue.trim().toLowerCase() == cleanTitle) {
+    if (inputValue.trim().toLowerCase() === cleanTitle) {
       alert("Correct!");
       setCurrentScore((prev) => (prev + 1));
 
@@ -87,14 +111,16 @@ function App() {
   return (
     <>
       <Container>
+        <Box>
         <Typography variant="h4" sx={{ my: 4, textAlign: "left", color: "primary/main" }}
-        >Score: {currentScore} / {totalScore}  </Typography>
+        >Score: {currentScore} / {totalScore} </Typography>
 
-        <Typography variant="h4" sx={{ my: 4, textAlign: "right", color: "primary/main" }}
+        <Typography variant="h4" sx={{ my: 4, textAlign: "center", color: "primary/main" }}
         >Timer: </Typography>
+        </Box>
 
         <Typography variant="h3" sx={{ my: 4, textAlign: "center", color: "primary/main" }}
-        >Are you ready for it?</Typography>
+        >...are you ready for it? </Typography>
 
         <Box py={1.5}>
 
@@ -137,7 +163,7 @@ function App() {
 
         </Typography>
 
-        <Box py={1}></Box>
+        <Box py={1}> </Box>
 
         <Button
           variant="contained"
