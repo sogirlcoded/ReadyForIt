@@ -20,6 +20,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 // import "swiftie/midnights.css";
 
 function App() {
+
+  document.body.style.backgroundImage = "url('https://img.buzzfeed.com/store-an-image-prod-us-east-1/nUca4TZAy.png?downsize=625%3A*&output-format=jpg&output-quality=auto')";
+  
   const [songInfo, setSongInfo] = React.useState([]);
   const [currentScore, setCurrentScore] = useState(0);
   const [totalScore, setTotalScore] = useState(20);
@@ -95,7 +98,6 @@ function App() {
       .replace(/10 minute version/gi, ' ')
       .replace(/\s*\(.*?\)\s*/g, ' ')
       .replace(/\\/g, '')
-
       .trim()
       .toLowerCase();
 
@@ -125,6 +127,7 @@ function App() {
   return (
     <>
       <Container>
+        
         <Box>
           <Typography variant="h5" sx={{ my: 4, display: "flex", textAlign: "center", color: "primary/main" }}
           >{currentScore} / {totalScore} {<Box px={19}></Box>} (but honestly, baby who's counting...)  
