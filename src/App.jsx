@@ -4,44 +4,33 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Box, Container, Typography } from '@mui/material';
 import Fuse from 'fuse.js';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+// import { Alert } from '@mui/material';
+// import "swiftie/taylor-swift.css";
+// import "swiftie/fearless.css";
+// import "swiftie/speak-now.css";
+// import "swiftie/red.css";
+// import "swiftie/1989.css";
+// import "swiftie/reputation.css";
+// import "swiftie/lover.css";
+// import "swiftie/folklore.css";
+// import "swiftie/evermore.css";
+// import "swiftie/fearless-tv.css";
+// import "swiftie/red-tv.css";
+// import "swiftie/midnights.css";
 
 function App() {
   const [songInfo, setSongInfo] = React.useState([]);
   const [currentScore, setCurrentScore] = useState(0);
   const [totalScore, setTotalScore] = useState(20);
   const [gameCount, setGameCount] = useState(0);
-  const [startGame, setStartGame] = useState(false)
+  const [startGame, setStartGame] = useState(false);
   const [inputValue, setInputValue] = useState("");
-
-//   const theme = createTheme({
-//   typography: {
-//     fontFamily: [
-//       '-apple-system',
-//       'BlinkMacSystemFont',
-//       '"Segoe UI"',
-//       'Roboto',
-//       '"Helvetica Neue"',
-//       'Arial',
-//       'sans-serif',
-//       '"Apple Color Emoji"',
-//       '"Segoe UI Emoji"',
-//       '"Segoe UI Symbol"',
-//     ].join(','),
-//   },
-// });
-
-//   const THEME = createMuiTheme({
-//    typography: {
-//     "fontFamily": `"Big Caslon`,
-//     // "fontSize": 14,
-//     // "fontWeightLight": 300,
-//     // "fontWeightRegular": 400,
-//     // "fontWeightMedium": 500
-//    }
-// });
 
   if (gameCount === totalScore) {
     endGame();
+    setStartGame(false);
+    refreshLyric();
   }
 
   // const requestLyrics = {
@@ -80,19 +69,21 @@ function App() {
   // }
 
   function endGame() {
-  let message = "";
+    let message = "";
+    if (currentScore === 20) {
+      message = "Swift AF ";
+    } else if (currentScore >= 16) {
+      message = "Yes, whale! (Taylor's Version)";
+    } else if (currentScore >= 12) {
+      message = "Mother is mothering";
+    } else if (currentScore >= 8) {
+      message = "you need to calm down...";
+    } else if (currentScore >= 4) {
+      message = "is this you trying?";
+    } else {
+      message = "now go stand in the corner and think about what you just did! ";
+    }
 
-  if (currentScore === 20) {
-    message = "Swift AF ";
-  } else if (currentScore > 15) {
-    message = "card shark <3 ";
-  } else if (currentScore > 10) {
-    message = "Yes, whale! (Taylor's Version)";
-  } else if (currentScore > 6) {
-    message = "you need to calm down...";
-  } else {
-    message = "is this you trying?";
-  }
     alert("Game Over! Score: " + currentScore + " / " + totalScore + "\n" + message + "\n" + "(Refresh page to play again)"
     );
   }
@@ -103,6 +94,8 @@ function App() {
       .replace(/taylor['’]s version/gi, ' ')
       .replace(/10 minute version/gi, ' ')
       .replace(/\s*\(.*?\)\s*/g, ' ')
+      .replace(/\\/g, '')
+
       .trim()
       .toLowerCase();
 
@@ -113,42 +106,44 @@ function App() {
       setCurrentScore((prev) => (prev + 1));
 
     } else {
-      alert("Incorrect!");
+      alert("Should've said (No) :  " + songInfo.song_title.replace(/\\/g, ''));
 
     }
-    // setGameCount((prev) => (prev + 1));
+      console.log("Cleaned Title: "+ cleanTitle);
+
     refreshLyric();
     setInputValue("");
 
     // console.log(songInfo.title);
-    console.log(cleanTitle);
+    
   }
 
-  console.log(songInfo);
+  console.log("Original Title: " + songInfo);
+
+  console.log("Game Count: " + gameCount);
 
   return (
     <>
       <Container>
         <Box>
-        <Typography variant="h4" sx={{ my: 4, textAlign: "left", color: "primary/main" }}
-        >Score: {currentScore} / {totalScore} </Typography>
+          <Typography variant="h5" sx={{ my: 4, display: "flex", textAlign: "center", color: "primary/main" }}
+          >{currentScore} / {totalScore} {<Box px={19}></Box>} (but honestly, baby who's counting...)  
+          {/* add timer here */}
+          </Typography>
 
-        <Typography variant="h4" sx={{ my: 4, textAlign: "center", color: "primary/main" }}
-        >Timer: </Typography>
         </Box>
 
-        <Typography variant="h3" sx={{ my: 4, textAlign: "center", color: "primary/main" }}
-        >...are you ready for it? </Typography>
+        <Box py={4}></Box>
 
-        <Box py={1.5}>
+        <Typography variant ="h4"sx={{ fontStyle: 'italic', my: 4, textAlign: "left", color: "primary/main" }}>can i ask you a question...?</Typography>
+        <Typography variant="h2" sx={{ fontWeight: '450', my: 4, textAlign: "right", color: "primary/main" }} className="font-reputation"
+        > ...are you ready for it? </Typography>
 
-          <button onClick={() => setStartGame(true) & refreshLyric()}>let the games begin...</button>
-
-          <Box py={1.5} />
-
+        <Box py={3}>
+          <button variant="contained" className="font-reputation" color='gray' onClick={() => setGameCount(0) & setStartGame(true) & refreshLyric()} >let the games begin</button>
+          <Box py={2} />
 
           {startGame &&
-          
             <TextField id="outlined-basic" label="you're on your own, kid" variant="outlined"
               fullWidth
               value={inputValue}
@@ -187,15 +182,16 @@ function App() {
 
         <Button
           variant="contained"
+          color = "#c2c2d6"
           sx={{ px: 6, mx: 2, }}
-          onClick={refreshLyric}
-
+          onClick={refreshLyric} 
         >
           Skip
         </Button>
 
         <Button
           variant="contained"
+          color = "#c2c2d6"
           sx={{ px: 6, mx: 2, }}
           onClick={checkInput}
 
