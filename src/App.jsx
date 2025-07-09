@@ -3,7 +3,6 @@ import './App.css'
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Box, Container, Typography } from '@mui/material';
-import Fuse from 'fuse.js';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 // import { Alert } from '@mui/material';
 // import "swiftie/taylor-swift.css";
