@@ -25,15 +25,17 @@ function App() {
   
   const [songInfo, setSongInfo] = React.useState([]);
   const [currentScore, setCurrentScore] = useState(0);
-  const [totalScore, setTotalScore] = useState(20);
-  const [gameCount, setGameCount] = useState(0);
+  const [totalScore, setTotalScore] = useState(20); //can be regular var bc it never changes
+  const [gameCount, setGameCount] = useState(0); //change name to questionCount
   const [startGame, setStartGame] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
   if (gameCount === totalScore) {
     endGame();
+    // setCurrentScore(0);
     setStartGame(false);
     refreshLyric();
+    // setSongInfo(null);
   }
 
   // const requestLyrics = {
@@ -143,11 +145,22 @@ function App() {
         > ...are you ready for it? </Typography>
 
         <Box py={3}>
-          <button variant="contained" className="font-reputation" color='gray' onClick={() => setGameCount(0) & setStartGame(true) & refreshLyric()} >let the games begin</button>
+          <button variant="contained" className="font-reputation" color='gray' onClick={() => setGameCount(0) & setStartGame(true) & refreshLyric() } >let the games begin</button>
           <Box py={2} />
 
+
+        <Typography
+
+        >
+          {songInfo.partialLyric}
+
+        </Typography>
+
+                <Box py={2}>
+
+        </Box>
           {startGame &&
-            <TextField id="outlined-basic" label="you're on your own, kid" variant="outlined"
+            <TextField id="outlined-basic" label="you're on your own, kid" variant="outlined" color="black"
               fullWidth
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
@@ -170,16 +183,7 @@ function App() {
           Hint
         </Button> */}
 
-        <Box py={1}>
 
-        </Box>
-
-        <Typography
-
-        >
-          {songInfo.partialLyric}
-
-        </Typography>
 
         <Box py={1}> </Box>
 
