@@ -2,7 +2,7 @@
   "name": "game-show-app",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://{sogirlcoded}.github.io/{ReadyForIt}",
+  "homepage": "https://sogirlcoded.github.io/ReadyForIt",
   "type": "module",
   "scripts": {
     "predeploy": "npm run build",
